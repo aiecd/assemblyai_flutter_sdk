@@ -44,6 +44,11 @@ print(transcriptionResult);
 
 To run tests, navigate to your package directory and use:
 
+## Examples
+
+For a deeper dive into how to use this package, check out the `examples` directory in the package repository.
+
+
 ### Contribution
 
 Contributions are welcome! If you find a bug or want to suggest a new feature, open an issue. If you want to submit a PR, ensure that it passes all tests and adheres to the code style of the project.
