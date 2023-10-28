@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class AssemblyAI {
@@ -9,6 +10,33 @@ class AssemblyAI {
   /// Constructor to initialize the AssemblyAI client with an API key.
   AssemblyAI(this._apiKey, {http.Client? client})
       : client = client ?? http.Client();
+
+  /// Upload a local audio file to AssemblyAI.
+  ///
+  /// Provide the local file path to upload the audio file.
+  Future<String> uploadAudio(String filePath) async {
+    final file = File(filePath);
+    final request = http.MultipartRequest(
+      'POST',
+      Uri.parse('$_baseUrl/upload'),
+    );
+    request.headers.addAll({'authorization': _apiKey});
+    request.files.add(http.MultipartFile.fromBytes(
+      'file',
+      await file.readAsBytes(),
+      filename: file.uri.pathSegments.last,
+    ));
+
+    final response = await request.send();
+    final responseBody = await http.Response.fromStream(response);
+
+    if (responseBody.statusCode == 200) {
+      final jsonData = json.decode(responseBody.body);
+      return jsonData['upload_url'];
+    } else {
+      throw AssemblyAIException('Failed to upload audio file');
+    }
+  }
 
   /// Submitting a new transcription job.
   ///
