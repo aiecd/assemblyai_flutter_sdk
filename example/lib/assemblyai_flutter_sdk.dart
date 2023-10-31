@@ -1,7 +1,9 @@
+// ignore_for_file: avoid_print
+
 import 'package:assemblyai_flutter_sdk/assemblyai_flutter_sdk.dart';
 
 void main() async {
-  final apiKey = 'YOUR_API_KEY';
+  const apiKey = 'YOUR_API_KEY';
   final api = AssemblyAI(apiKey);
 
 // 1. Upload an audio file
@@ -18,10 +20,10 @@ void main() async {
   };
   final transcription = await api.submitTranscription(transcriptionData);
 
-  print('Transcription submitted! ID: ${transcription['id']}');
+  print('Transcription submitted! ID: ${transcription.id}');
 
   // 3. Retrieve the transcription (For simplicity, we'll immediately try to fetch. In a real-world scenario, you'd wait until it's completed)
-  final transcriptionResult = await api.getTranscription(transcription['id']);
+  final transcriptionResult = await api.getTranscription(transcription.id);
 
-  print('Transcription text: ${transcriptionResult['text']}');
+  print('Transcription text: ${transcriptionResult.text}');
 }

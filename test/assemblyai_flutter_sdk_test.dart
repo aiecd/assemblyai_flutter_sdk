@@ -21,7 +21,7 @@ void main() {
       'punctuate': true,
     });
 
-    expect(transcription['id'], testTranscriptId);
+    expect(transcription.id, testTranscriptId);
   });
 
   test('Get transcription successfully', () async {
@@ -34,7 +34,7 @@ void main() {
     });
 
     final transcription = await api.getTranscription(testTranscriptId);
-    expect(transcription['text'], 'This is a test transcription.');
+    expect(transcription.text, 'This is a test transcription.');
   });
 
   // Add more tests for other methods in a similar fashion.

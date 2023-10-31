@@ -2,6 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
+import 'models/assembly_ai_transcriptions_response.dart';
+
+// import 'models/assembly_ai_transcriptions_response.dart';
+
 class AssemblyAI {
   final String _apiKey;
   http.Client client;
@@ -41,7 +45,8 @@ class AssemblyAI {
   /// Submitting a new transcription job.
   ///
   /// Parameters should include `audio_url` and other optional configurations.
-  Future<Map<String, dynamic>> submitTranscription(
+
+  Future<AssemblyAiResponse> submitTranscription(
       Map<String, dynamic> parameters) async {
     final response = await http.post(
       Uri.parse('$_baseUrl/transcript'),
@@ -53,14 +58,14 @@ class AssemblyAI {
     );
 
     if (response.statusCode == 200) {
-      return json.decode(response.body);
+      return AssemblyAiResponse.fromJson(json.decode(response.body));
     } else {
       throw AssemblyAIException('Failed to submit transcription');
     }
   }
 
   /// Retrieving the transcription results by providing the `transcriptId`.
-  Future<Map<String, dynamic>> getTranscription(String transcriptId) async {
+  Future<AssemblyAiResponse> getTranscription(String transcriptId) async {
     final response = await http.get(
       Uri.parse('$_baseUrl/transcript/$transcriptId'),
       headers: {
@@ -69,7 +74,7 @@ class AssemblyAI {
     );
 
     if (response.statusCode == 200) {
-      return json.decode(response.body);
+      return AssemblyAiResponse.fromJson(json.decode(response.body));
     } else {
       throw AssemblyAIException('Failed to retrieve transcription');
     }
