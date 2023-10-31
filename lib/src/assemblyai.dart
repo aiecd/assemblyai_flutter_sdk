@@ -58,7 +58,12 @@ class AssemblyAI {
     );
 
     if (response.statusCode == 200) {
-      return AssemblyAiResponse.fromJson(json.decode(response.body));
+      final jsonData = json.decode(response.body);
+      if (jsonData != null) {
+        return AssemblyAiResponse.fromJson(jsonData);
+      } else {
+        throw AssemblyAIException('Received null response from the server');
+      }
     } else {
       throw AssemblyAIException('Failed to submit transcription');
     }

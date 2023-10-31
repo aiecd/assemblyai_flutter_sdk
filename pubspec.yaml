@@ -1,6 +1,6 @@
 name: assemblyai_flutter_sdk
 description: A Flutter SDK to interact with the AssemblyAI API for audio transcription
-version: 0.0.4
+version: 0.0.10
 homepage: https://github.com/operatorultra/assemblyai_flutter_sdk
 
 environment:
