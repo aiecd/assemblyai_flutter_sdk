@@ -67,10 +67,10 @@ class Word {
 
   factory Word.fromJson(Map<String, dynamic> json) {
     return Word(
-      text: json['text'],
-      start: json['start'],
-      end: json['end'],
-      confidence: json['confidence']?.toDouble(),
+      text: json['text'] as String,
+      start: json['start'] as int,
+      end: json['end'] as int,
+      confidence: json['confidence']?.toDouble() ?? 0.0, //null check
       speaker: json['speaker'],
     );
   }
